@@ -1,0 +1,31 @@
+{
+  "name": "axisvault",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AxisVault — zero-knowledge password manager (web, desktop, server)",
+  "workspaces": [
+    "packages/shared",
+    "packages/server",
+    "packages/web",
+    "packages/desktop"
+  ],
+  "scripts": {
+    "setup": "npm install && npm run build:shared && npm run build:server",
+    "build:shared": "npm run build -w packages/shared",
+    "dev:shared": "npm run dev -w packages/shared",
+    "dev:server": "concurrently -n shared,server -c yellow,cyan \"npm run dev:shared\" \"npm run dev -w packages/server\"",
+    "dev:web": "concurrently -n shared,web -c yellow,magenta \"npm run dev:shared\" \"npm run dev -w packages/web\"",
+    "dev:desktop": "npm run dev -w packages/desktop",
+    "build:server": "npm run build:shared && npm run build -w packages/server",
+    "build:web": "npm run build:shared && npm run build -w packages/web",
+    "build:desktop": "npm run build:shared && npm run build -w packages/desktop",
+    "migrate": "npm run build:server && npm run migrate -w packages/server",
+    "test:shared": "npm run test -w packages/shared"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

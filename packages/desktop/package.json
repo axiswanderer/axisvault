@@ -1,0 +1,54 @@
+{
+  "name": "@axisvault/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AxisVault Windows/macOS/Linux desktop app — Electron shell around the shared web UI",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "cross-env ELECTRON_BUILD=true npm run build --prefix ../web -- --mode electron",
+    "build": "npm run build:renderer && npm run build:main && npm run copy-renderer",
+    "copy-renderer": "mkdir -p dist/renderer && cp -r ../web/dist/* dist/renderer/",
+    "dev": "npm run build:main && electron .",
+    "start": "electron .",
+    "package:win": "npm run build && electron-builder --win --x64",
+    "package:mac": "npm run build && electron-builder --mac",
+    "package:linux": "npm run build && electron-builder --linux"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^32.1.0",
+    "electron-builder": "^25.0.5",
+    "typescript": "^5.5.4",
+    "@types/node": "^22.5.0",
+    "cross-env": "^7.0.3"
+  },
+  "build": {
+    "appId": "com.axisvault.desktop",
+    "productName": "AxisVault",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*"
+    ],
+    "win": {
+      "target": ["nsis"],
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "icon": "build/icon.png",
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+release/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment secrets — never commit real values
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.electron
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Desktop packaging intermediates
+packages/desktop/build/icon-512.png
+packages/desktop/electron-builder-effective-config.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
