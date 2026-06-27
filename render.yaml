@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: axisvault-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build:server && npm run migrate -w packages/server
+    startCommand: npm run start -w packages/server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_SSL
+        value: "true"
+      - key: DB_POOL_MAX
+        value: "5"
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_TTL
+        value: "15m"
+      - key: JWT_REFRESH_TTL_DAYS
+        value: "30"
+      - key: CORS_ORIGIN
+        sync: false
+      - key: ALLOW_NULL_ORIGIN
+        value: "false"
+      - key: SERVER_ARGON2_MEMORY_KIB
+        value: "19456"
+      - key: SERVER_ARGON2_TIME_COST
+        value: "2"
+      - key: SERVER_ARGON2_PARALLELISM
+        value: "1"
+      - key: RATE_LIMIT_AUTH_MAX
+        value: "10"
+      - key: RATE_LIMIT_AUTH_WINDOW_MS
+        value: "900000"
