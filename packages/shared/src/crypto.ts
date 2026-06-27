@@ -107,18 +107,12 @@ const ENC_CONTEXT = "axisvault-enc-v1";
 // ---------------------------------------------------------------------------
 
 function toBase64(bytes: Uint8Array): string {
-  if (typeof Buffer !== "undefined") {
-    return Buffer.from(bytes).toString("base64");
-  }
   let binary = "";
   for (const b of bytes) binary += String.fromCharCode(b);
   return btoa(binary);
 }
 
 function fromBase64(b64: string): Uint8Array {
-  if (typeof Buffer !== "undefined") {
-    return new Uint8Array(Buffer.from(b64, "base64"));
-  }
   const binary = atob(b64);
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
@@ -162,7 +156,7 @@ function utf8(input: string): Uint8Array {
 
 /** Wipe a Uint8Array's contents in place. Best-effort — JS GC means this isn't a hard guarantee, but it shrinks the window a leaked memory dump could be useful. */
 export function wipeBytes(bytes: Uint8Array): void {
-  crypto.getRandomValues(bytes);
+  crypto.getRandomValues(bytes as Uint8Array<ArrayBuffer>);
   bytes.fill(0);
 }
 

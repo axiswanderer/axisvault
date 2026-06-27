@@ -3,7 +3,7 @@ services:
     name: axisvault-api
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build:server && npm run migrate -w packages/server
+    buildCommand: npm ci --include=dev && npm run build:server && npm run migrate -w packages/server
     startCommand: npm run start -w packages/server
     healthCheckPath: /health
     envVars:
