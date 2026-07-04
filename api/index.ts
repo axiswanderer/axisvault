@@ -1,3 +1,3 @@
-import { createApp } from "../packages/server/src/app";
+import { createApp } from "../packages/server/dist/app.js";
 
 export default createApp();
