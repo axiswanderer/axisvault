@@ -95,6 +95,7 @@ function buildMenu(): Menu {
         { role: "toggleDevTools" },
         { type: "separator" },
         { role: "resetZoom" },
+        
         { role: "zoomIn" },
         { role: "zoomOut" },
         { role: "togglefullscreen" },

@@ -1,7 +1,16 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "npm run build:web",
+  "buildCommand": "npm run build:server && npm run migrate -w packages/server && npm run build:web",
   "outputDirectory": "packages/web/dist",
   "framework": null,
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+  "functions": {
+    "api/index.ts": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/health", "destination": "/api/index" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
 }
